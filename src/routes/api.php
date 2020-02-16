@@ -34,6 +34,7 @@ Route::middleware('check.token')->group(function () {
 
     Route::resource('song', 'SongController')->except(['create', 'edit']);
     Route::resource('category', 'CategoryController')->except(['create', 'edit']);
+    Route::resource('/favorite', 'FavoriteController')->except(['create', 'edit']);
 
     Route::get('category/{id}/song', 'CategoryController@song')->name('category.song');
 });
