@@ -6,6 +6,7 @@ use App\Http\Requests\ConfigRequest;
 use App\Http\Resources\BaseResource;
 use App\Http\Resources\ConfigResource;
 use App\Http\Resources\ConfigResultResource;
+use App\Http\Resources\SongResource;
 use App\Services\ConfigService;
 use Illuminate\Http\Request;
 
@@ -26,8 +27,36 @@ class ConfigController extends Controller
         $this->configService = $configService;
     }
 
-    /**
-     * @return \Illuminate\Config\Repository|mixed
+    /** @SWG\Get(
+     *     path="/api/config",
+     *     tags={"Config"},
+     *     summary="Ayarlar dosyasını indirir",
+     *     description="Ayarlar dosyasını indirir",
+     *     @SWG\Response(
+     *          response=200,
+     *          description="işlem başarılı",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="errorCode",
+     *                  type="int"
+     *             ),
+     *             @SWG\Property(
+     *                  property="errorMessage",
+     *                  type="string"
+     *             ),
+     *             @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *             )
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *          response=401,
+     *          description="Unauthorized"
+     *     )
+     * )
+     * @return ConfigResource
      */
     public function get()
     {
@@ -35,7 +64,48 @@ class ConfigController extends Controller
         return new ConfigResource($config, BaseResource::HTTP_OK, BaseResource::$statusTexts[200]);
     }
 
-    /**
+    /** @SWG\Post(
+     *     path="/api/config/check",
+     *     tags={"Config"},
+     *     summary="Ayarları kontrol eder",
+     *     description="Ayarlar kontrol eder",
+     *     @SWG\Parameter(
+     *          name="app_ver",
+     *          description="app_ver",
+     *          required=true,
+     *          type="string",
+     *          in="query"
+     *     ),@SWG\Parameter(
+     *          name="lang_ver",
+     *          description="lang_ver",
+     *          required=true,
+     *          type="string",
+     *          in="query"
+     *     ),
+     *     @SWG\Response(
+     *          response=200,
+     *          description="işlem başarılı",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="errorCode",
+     *                  type="int"
+     *             ),
+     *             @SWG\Property(
+     *                  property="errorMessage",
+     *                  type="string"
+     *             ),
+     *             @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *             )
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *          response=401,
+     *          description="Unauthorized"
+     *     )
+     * )
      * @param ConfigRequest $request
      * @return ConfigResultResource
      */

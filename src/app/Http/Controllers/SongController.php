@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use App\Http\Requests\SongRequest;
 use App\Http\Resources\BaseResource;
+use App\Http\Resources\CategoryResource;
 use App\Http\Resources\SongResource;
 use App\Repositories\Contracts\SongRepositoryContract;
 use App\Repositories\SongRepository;
@@ -20,9 +22,42 @@ class SongController extends Controller
         $this->songRepository = app(SongRepositoryContract::class);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
+    /** @SWG\Get(
+     *     path="/api/song",
+     *     tags={"Song"},
+     *     summary="Şarkı listesini döner",
+     *     description="Şarkı listesini döner",
+     *     @SWG\Parameter(
+     *          name="token",
+     *          description="token",
+     *          required=true,
+     *          type="string",
+     *          in="header"
+     *     ),
+     *     @SWG\Response(
+     *          response=200,
+     *          description="işlem başarılı",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="errorCode",
+     *                  type="int"
+     *             ),
+     *             @SWG\Property(
+     *                  property="errorMessage",
+     *                  type="string"
+     *             ),
+     *             @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *             )
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *          response=401,
+     *          description="Unauthorized"
+     *     )
+     * )
      * @return SongResource
      */
     public function index()
@@ -34,9 +69,56 @@ class SongController extends Controller
         return new SongResource(null, BaseResource::HTTP_BAD_REQUEST, BaseResource::$statusTexts[BaseResource::HTTP_BAD_REQUEST]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
+    /** @SWG\Post(
+     *     path="/api/song",
+     *     tags={"Song"},
+     *     summary="Şarkı ekle",
+     *     description="Şarkı ekle",
+     *     @SWG\Parameter(
+     *          name="token",
+     *          description="token",
+     *          required=true,
+     *          type="string",
+     *          in="header"
+     *     ),
+     *     @SWG\Parameter(
+     *          name="title",
+     *          description="title",
+     *          required=true,
+     *          type="string",
+     *          in="query"
+     *     ),
+     *     @SWG\Parameter(
+     *          name="image",
+     *          description="image",
+     *          required=true,
+     *          type="string",
+     *          in="query"
+     *     ),
+     *     @SWG\Response(
+     *          response=201,
+     *          description="işlem başarılı",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="errorCode",
+     *                  type="int"
+     *             ),
+     *             @SWG\Property(
+     *                  property="errorMessage",
+     *                  type="string"
+     *             ),
+     *             @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *             )
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *          response=401,
+     *          description="Unauthorized"
+     *     )
+     * )
      * @param SongRequest $request
      * @return SongResource
      */
@@ -49,10 +131,45 @@ class SongController extends Controller
         return new SongResource(null, BaseResource::HTTP_BAD_REQUEST, "Şarkı Eklenemedi Bad request");
     }
 
-    /**
-     * Display the specified resource.
+    /** @SWG\Get(
+     *     path="/api/song/{songId}",
+     *     tags={"Song"},
+     *     summary="Şarkı detayı",
+     *     description="Şarkı detayo",
+     *     @SWG\Parameter(name="songId", description="songId", in="path", type="integer", format="int32"),
+     *     @SWG\Parameter(
+     *          name="token",
+     *          description="token",
+     *          required=true,
+     *          type="string",
+     *          in="header"
+     *     ),
      *
-     * @param int $id
+     *     @SWG\Response(
+     *          response=200,
+     *          description="işlem başarılı",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="errorCode",
+     *                  type="int"
+     *             ),
+     *             @SWG\Property(
+     *                  property="errorMessage",
+     *                  type="string"
+     *             ),
+     *             @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *             )
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *          response=401,
+     *          description="Unauthorized"
+     *     )
+     * )
+     * @param $id
      * @return SongResource
      */
     public function show($id)
@@ -65,11 +182,59 @@ class SongController extends Controller
     }
 
 
-    /**
-     * Update the specified resource in storage.
+    /** @SWG\Put(
+     *     path="/api/song/{songId}",
+     *     tags={"Song"},
+     *     summary="Şarkı güncelleme",
+     *     description="Şarkı güncelleme",
+     *     @SWG\Parameter(name="songId", description="songId", in="path", type="integer", format="int32"),
+     *     @SWG\Parameter(
+     *          name="token",
+     *          description="token",
+     *          required=true,
+     *          type="string",
+     *          in="header"
+     *     ),@SWG\Parameter(
+     *          name="title",
+     *          description="title",
+     *          required=true,
+     *          type="string",
+     *          in="query"
+     *     ),
+     *     @SWG\Parameter(
+     *          name="image",
+     *          description="image",
+     *          required=true,
+     *          type="string",
+     *          in="query"
+     *     ),
      *
+     *     @SWG\Response(
+     *          response=201,
+     *          description="işlem başarılı",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="errorCode",
+     *                  type="int"
+     *             ),
+     *             @SWG\Property(
+     *                  property="errorMessage",
+     *                  type="string"
+     *             ),
+     *             @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *             )
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *          response=401,
+     *          description="Unauthorized"
+     *     )
+     * )
      * @param SongRequest $request
-     * @param int $id
+     * @param $id
      * @return SongResource
      */
     public function update(SongRequest $request, $id)
@@ -82,10 +247,44 @@ class SongController extends Controller
         return new SongResource(null, BaseResource::HTTP_BAD_REQUEST, "Şarkı bulunamadı. Bad request");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
+    /** @SWG\Delete(
+     *     path="/api/song/{songId}",
+     *     tags={"Song"},
+     *     summary="Şarkı Silme",
+     *     description="Şarkı Silme",
+     *     @SWG\Parameter(name="songId", description="songId", in="path", type="integer", format="int32"),
+     *     @SWG\Parameter(
+     *          name="token",
+     *          description="token",
+     *          required=true,
+     *          type="string",
+     *          in="header"
+     *     ),
+     *     @SWG\Response(
+     *          response=204,
+     *          description="işlem başarılı",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="errorCode",
+     *                  type="int"
+     *             ),
+     *             @SWG\Property(
+     *                  property="errorMessage",
+     *                  type="string"
+     *             ),
+     *             @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *             )
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *          response=401,
+     *          description="Unauthorized"
+     *     )
+     * )
+     * @param $id
      * @return SongResource
      */
     public function destroy($id)

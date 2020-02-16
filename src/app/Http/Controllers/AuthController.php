@@ -23,12 +23,57 @@ class AuthController extends Controller
         $this->userRepository = app(UserRepositoryContract::class);
     }
 
-    /**
-     * Create user
-     *
-     * @param string name
-     * @param string email
-     * @param string password
+    /** @SWG\Post(
+     *     path="/api/register",
+     *     tags={"Auth"},
+     *     summary="Kayıt işlemi",
+     *     description="Kayıt işlemi",
+     *     @SWG\Parameter(
+     *          name="name",
+     *          description="email adresi",
+     *          required=true,
+     *          type="string",
+     *          in="query"
+     *     ),
+     *     @SWG\Parameter(
+     *          name="email",
+     *          description="User e-mail address",
+     *          required=true,
+     *          type="string",
+     *          in="query"
+     *     ),
+     *     @SWG\Parameter(
+     *          name="password",
+     *          description="Kullanıcı şifresi",
+     *          required=true,
+     *          type="string",
+     *          in="query"
+     *     ),
+     *     @SWG\Response(
+     *          response=201,
+     *          description="Kayıt Başarılı",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="errorCode",
+     *                  type="int"
+     *             ),
+     *             @SWG\Property(
+     *                  property="errorMessage",
+     *                  type="string"
+     *             ),
+     *             @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *             )
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *          response=401,
+     *          description="Unauthorized"
+     *     )
+     * )
+     * @param RegisterRequest $request
      * @return UserResource
      */
     public function register(RegisterRequest $request)
@@ -46,12 +91,49 @@ class AuthController extends Controller
         return new UserResource(null, BaseResource::HTTP_BAD_REQUEST, BaseResource::$statusTexts[BaseResource::HTTP_BAD_REQUEST]);
     }
 
-    /**
-     * Login user and create token
-     *
-     * @param string email
-     * @param string password
-     * @return UserResource
+    /** @SWG\Post(
+     *     path="/api/login",
+     *     tags={"Auth"},
+     *     summary="Login işlemi",
+     *     description="Login işlemi",
+     *     @SWG\Parameter(
+     *          name="email",
+     *          description="User e-mail address",
+     *          required=true,
+     *          type="string",
+     *          in="query"
+     *     ),
+     *     @SWG\Parameter(
+     *          name="password",
+     *          description="User password",
+     *          required=true,
+     *          type="string",
+     *          in="query"
+     *     ),
+     *     @SWG\Response(
+     *          response=201,
+     *          description="Kayıt Başarılı",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="errorCode",
+     *                  type="int"
+     *             ),
+     *             @SWG\Property(
+     *                  property="errorMessage",
+     *                  type="string"
+     *             ),
+     *             @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *             )
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *          response=401,
+     *          description="Unauthorized"
+     *     )
+     * )
      */
     public function login(LoginRequest $request)
     {
@@ -65,11 +147,44 @@ class AuthController extends Controller
         return new UserResource($user, BaseResource::HTTP_ACCEPTED, BaseResource::$statusTexts[BaseResource::HTTP_ACCEPTED]);
     }
 
-    /**
-     * Logout user (Revoke the token)
-     *
+    /** @SWG\Post(
+     *     path="/api/logout",
+     *     tags={"Auth"},
+     *     summary="Logout işlemi",
+     *     description="Login işlemi",
+     *     @SWG\Parameter(
+     *          name="token",
+     *          description="token",
+     *          required=true,
+     *          type="string",
+     *          in="header"
+     *     ),
+     *     @SWG\Response(
+     *          response=201,
+     *          description="Kayıt Başarılı",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="errorCode",
+     *                  type="int"
+     *             ),
+     *             @SWG\Property(
+     *                  property="errorMessage",
+     *                  type="string"
+     *             ),
+     *             @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *             )
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *          response=401,
+     *          description="Unauthorized"
+     *     )
+     * )
      * @param Request $request
-     * @return UserResource message
+     * @return UserResource
      */
     public function logout(Request $request)
     {
@@ -78,8 +193,41 @@ class AuthController extends Controller
         return new UserResource(null, BaseResource::HTTP_OK, BaseResource::$statusTexts[BaseResource::HTTP_OK]);
     }
 
-    /**
-     * Get the authenticated User
+    /** @SWG\Get(
+     *     path="/api/user",
+     *     tags={"Auth"},
+     *     summary="Profil bilgisi",
+     *     description="Profil bilgisi",
+     *     @SWG\Parameter(
+     *          name="token",
+     *          description="User token",
+     *          required=true,
+     *          type="string",
+     *          in="header"
+     *     ),
+     *     @SWG\Response(
+     *          response=200,
+     *          description="profile data",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="user_id",
+     *                  type="integer"),
+     *              @SWG\Property(
+     *                  property="name_surname",
+     *                  type="string"),
+     *              @SWG\Property(
+     *                  property="age",
+     *                  type="integer"
+     *             )
+     *         )
+     *     ),
+     *     @SWG\Response(
+     *          response=401,
+     *          description="Unauthorized"
+     *     )
+     * )
+     * @param Request $request
      * @return UserResource
      */
     public function user(Request $request)

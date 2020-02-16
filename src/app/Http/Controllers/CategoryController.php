@@ -20,9 +20,42 @@ class CategoryController extends Controller
         $this->categoryRepository = app(CategoryRepositoryContract::class);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
+    /** @SWG\Get(
+     *     path="/api/category",
+     *     tags={"Category"},
+     *     summary="Kategori listesini döner",
+     *     description="Kategory listesini döner",
+     *     @SWG\Parameter(
+     *          name="token",
+     *          description="token",
+     *          required=true,
+     *          type="string",
+     *          in="header"
+     *     ),
+     *     @SWG\Response(
+     *          response=200,
+     *          description="işlem başarılı",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="errorCode",
+     *                  type="int"
+     *             ),
+     *             @SWG\Property(
+     *                  property="errorMessage",
+     *                  type="string"
+     *             ),
+     *             @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *             )
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *          response=401,
+     *          description="Unauthorized"
+     *     )
+     * )
      * @return CategoryResource
      */
     public function index()
@@ -34,9 +67,56 @@ class CategoryController extends Controller
         return new CategoryResource(null, BaseResource::HTTP_BAD_REQUEST, BaseResource::$statusTexts[BaseResource::HTTP_BAD_REQUEST]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
+    /** @SWG\Post(
+     *     path="/api/category",
+     *     tags={"Category"},
+     *     summary="Kategori ekle",
+     *     description="Kategory ekle",
+     *     @SWG\Parameter(
+     *          name="token",
+     *          description="token",
+     *          required=true,
+     *          type="string",
+     *          in="header"
+     *     ),
+     *     @SWG\Parameter(
+     *          name="name",
+     *          description="name",
+     *          required=true,
+     *          type="string",
+     *          in="query"
+     *     ),
+     *     @SWG\Parameter(
+     *          name="image",
+     *          description="image",
+     *          required=true,
+     *          type="string",
+     *          in="query"
+     *     ),
+     *     @SWG\Response(
+     *          response=201,
+     *          description="işlem başarılı",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="errorCode",
+     *                  type="int"
+     *             ),
+     *             @SWG\Property(
+     *                  property="errorMessage",
+     *                  type="string"
+     *             ),
+     *             @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *             )
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *          response=401,
+     *          description="Unauthorized"
+     *     )
+     * )
      * @param CategoryRequest $request
      * @return CategoryResource
      */
@@ -49,10 +129,45 @@ class CategoryController extends Controller
         return new CategoryResource(null, BaseResource::HTTP_BAD_REQUEST, "Kategori Eklenemedi Bad request");
     }
 
-    /**
-     * Display the specified resource.
+    /** @SWG\Get(
+     *     path="/api/category/{categoryId}",
+     *     tags={"Category"},
+     *     summary="Kategori detayı",
+     *     description="Kategory detayo",
+     *     @SWG\Parameter(name="categoryId", description="categoryId", in="path", type="integer", format="int32"),
+     *     @SWG\Parameter(
+     *          name="token",
+     *          description="token",
+     *          required=true,
+     *          type="string",
+     *          in="header"
+     *     ),
      *
-     * @param int $id
+     *     @SWG\Response(
+     *          response=200,
+     *          description="işlem başarılı",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="errorCode",
+     *                  type="int"
+     *             ),
+     *             @SWG\Property(
+     *                  property="errorMessage",
+     *                  type="string"
+     *             ),
+     *             @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *             )
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *          response=401,
+     *          description="Unauthorized"
+     *     )
+     * )
+     * @param $id
      * @return CategoryResource
      */
     public function show($id)
@@ -65,11 +180,59 @@ class CategoryController extends Controller
     }
 
 
-    /**
-     * Update the specified resource in storage.
+    /** @SWG\Put(
+     *     path="/api/category/{categoryId}",
+     *     tags={"Category"},
+     *     summary="Kategori güncelleme",
+     *     description="Kategory güncelleme",
+     *     @SWG\Parameter(name="categoryId", description="categoryId", in="path", type="integer", format="int32"),
+     *     @SWG\Parameter(
+     *          name="token",
+     *          description="token",
+     *          required=true,
+     *          type="string",
+     *          in="header"
+     *     ),@SWG\Parameter(
+     *          name="name",
+     *          description="name",
+     *          required=true,
+     *          type="string",
+     *          in="query"
+     *     ),
+     *     @SWG\Parameter(
+     *          name="image",
+     *          description="image",
+     *          required=true,
+     *          type="string",
+     *          in="query"
+     *     ),
      *
+     *     @SWG\Response(
+     *          response=201,
+     *          description="işlem başarılı",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="errorCode",
+     *                  type="int"
+     *             ),
+     *             @SWG\Property(
+     *                  property="errorMessage",
+     *                  type="string"
+     *             ),
+     *             @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *             )
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *          response=401,
+     *          description="Unauthorized"
+     *     )
+     * )
      * @param CategoryRequest $request
-     * @param int $id
+     * @param $id
      * @return CategoryResource
      */
     public function update(CategoryRequest $request, $id)
@@ -82,10 +245,44 @@ class CategoryController extends Controller
         return new CategoryResource(null, BaseResource::HTTP_BAD_REQUEST, "Kategori bulunamadı. Bad request");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
+    /** @SWG\Delete(
+     *     path="/api/category/{categoryId}",
+     *     tags={"Category"},
+     *     summary="Kategori Silme",
+     *     description="Kategori Silme",
+     *     @SWG\Parameter(name="categoryId", description="categoryId", in="path", type="integer", format="int32"),
+     *     @SWG\Parameter(
+     *          name="token",
+     *          description="token",
+     *          required=true,
+     *          type="string",
+     *          in="header"
+     *     ),
+     *     @SWG\Response(
+     *          response=204,
+     *          description="işlem başarılı",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="errorCode",
+     *                  type="int"
+     *             ),
+     *             @SWG\Property(
+     *                  property="errorMessage",
+     *                  type="string"
+     *             ),
+     *             @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *             )
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *          response=401,
+     *          description="Unauthorized"
+     *     )
+     * )
+     * @param $id
      * @return CategoryResource
      */
     public function destroy($id)
@@ -98,7 +295,43 @@ class CategoryController extends Controller
         return new CategoryResource(null, BaseResource::HTTP_BAD_REQUEST, "Kategori bulunamadı. Bad request");
     }
 
-    /**
+    /** @SWG\Get(
+     *     path="/api/category/{categoryId}/song",
+     *     tags={"Category"},
+     *     summary="Kategori şarkılarını döner",
+     *     description="Kategori şarkılarını döner",
+     *     @SWG\Parameter(name="categoryId", description="categoryId", in="path", type="integer", format="int32"),
+     *     @SWG\Parameter(
+     *          name="token",
+     *          description="token",
+     *          required=true,
+     *          type="string",
+     *          in="header"
+     *     ),
+     *     @SWG\Response(
+     *          response=200,
+     *          description="işlem başarılı",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="errorCode",
+     *                  type="int"
+     *             ),
+     *             @SWG\Property(
+     *                  property="errorMessage",
+     *                  type="string"
+     *             ),
+     *             @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *             )
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *          response=401,
+     *          description="Unauthorized"
+     *     )
+     * )
      * @param $id
      * @return SongResource
      */

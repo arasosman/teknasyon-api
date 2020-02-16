@@ -1,0 +1,658 @@
+swagger: '2.0'
+info:
+  title: API
+  description: 'API Documentation'
+  version: 1.0.0
+paths:
+  /api/register:
+    post:
+      tags:
+        - Auth
+      summary: 'Kayıt işlemi'
+      description: 'Kayıt işlemi'
+      parameters:
+        -
+          name: name
+          in: query
+          description: 'email adresi'
+          required: true
+          type: string
+        -
+          name: email
+          in: query
+          description: 'User e-mail address'
+          required: true
+          type: string
+        -
+          name: password
+          in: query
+          description: 'Kullanıcı şifresi'
+          required: true
+          type: string
+      responses:
+        201:
+          description: 'Kayıt Başarılı'
+          schema:
+            properties:
+              errorCode:
+                type: int
+              errorMessage:
+                type: string
+              data:
+                type: string
+            type: object
+        401:
+          description: Unauthorized
+  /api/login:
+    post:
+      tags:
+        - Auth
+      summary: 'Login işlemi'
+      description: 'Login işlemi'
+      parameters:
+        -
+          name: email
+          in: query
+          description: 'User e-mail address'
+          required: true
+          type: string
+        -
+          name: password
+          in: query
+          description: 'User password'
+          required: true
+          type: string
+      responses:
+        201:
+          description: 'Kayıt Başarılı'
+          schema:
+            properties:
+              errorCode:
+                type: int
+              errorMessage:
+                type: string
+              data:
+                type: string
+            type: object
+        401:
+          description: Unauthorized
+  /api/logout:
+    post:
+      tags:
+        - Auth
+      summary: 'Logout işlemi'
+      description: 'Login işlemi'
+      parameters:
+        -
+          name: token
+          in: header
+          description: token
+          required: true
+          type: string
+      responses:
+        201:
+          description: 'Kayıt Başarılı'
+          schema:
+            properties:
+              errorCode:
+                type: int
+              errorMessage:
+                type: string
+              data:
+                type: string
+            type: object
+        401:
+          description: Unauthorized
+  /api/user:
+    get:
+      tags:
+        - Auth
+      summary: 'Profil bilgisi'
+      description: 'Profil bilgisi'
+      parameters:
+        -
+          name: token
+          in: header
+          description: 'User token'
+          required: true
+          type: string
+      responses:
+        200:
+          description: 'profile data'
+          schema:
+            properties:
+              user_id:
+                type: integer
+              name_surname:
+                type: string
+              age:
+                type: integer
+            type: object
+        401:
+          description: Unauthorized
+  /api/category:
+    get:
+      tags:
+        - Category
+      summary: 'Kategori listesini döner'
+      description: 'Kategory listesini döner'
+      parameters:
+        -
+          name: token
+          in: header
+          description: token
+          required: true
+          type: string
+      responses:
+        200:
+          description: 'işlem başarılı'
+          schema:
+            properties:
+              errorCode:
+                type: int
+              errorMessage:
+                type: string
+              data:
+                type: string
+            type: object
+        401:
+          description: Unauthorized
+    post:
+      tags:
+        - Category
+      summary: 'Kategori ekle'
+      description: 'Kategory ekle'
+      parameters:
+        -
+          name: token
+          in: header
+          description: token
+          required: true
+          type: string
+        -
+          name: name
+          in: query
+          description: name
+          required: true
+          type: string
+        -
+          name: image
+          in: query
+          description: image
+          required: true
+          type: string
+      responses:
+        201:
+          description: 'işlem başarılı'
+          schema:
+            properties:
+              errorCode:
+                type: int
+              errorMessage:
+                type: string
+              data:
+                type: string
+            type: object
+        401:
+          description: Unauthorized
+  '/api/category/{categoryId}':
+    get:
+      tags:
+        - Category
+      summary: 'Kategori detayı'
+      description: 'Kategory detayo'
+      parameters:
+        -
+          name: categoryId
+          in: path
+          description: categoryId
+          type: integer
+          format: int32
+        -
+          name: token
+          in: header
+          description: token
+          required: true
+          type: string
+      responses:
+        200:
+          description: 'işlem başarılı'
+          schema:
+            properties:
+              errorCode:
+                type: int
+              errorMessage:
+                type: string
+              data:
+                type: string
+            type: object
+        401:
+          description: Unauthorized
+    put:
+      tags:
+        - Category
+      summary: 'Kategori güncelleme'
+      description: 'Kategory güncelleme'
+      parameters:
+        -
+          name: categoryId
+          in: path
+          description: categoryId
+          type: integer
+          format: int32
+        -
+          name: token
+          in: header
+          description: token
+          required: true
+          type: string
+        -
+          name: name
+          in: query
+          description: name
+          required: true
+          type: string
+        -
+          name: image
+          in: query
+          description: image
+          required: true
+          type: string
+      responses:
+        201:
+          description: 'işlem başarılı'
+          schema:
+            properties:
+              errorCode:
+                type: int
+              errorMessage:
+                type: string
+              data:
+                type: string
+            type: object
+        401:
+          description: Unauthorized
+    delete:
+      tags:
+        - Category
+      summary: 'Kategori Silme'
+      description: 'Kategori Silme'
+      parameters:
+        -
+          name: categoryId
+          in: path
+          description: categoryId
+          type: integer
+          format: int32
+        -
+          name: token
+          in: header
+          description: token
+          required: true
+          type: string
+      responses:
+        204:
+          description: 'işlem başarılı'
+          schema:
+            properties:
+              errorCode:
+                type: int
+              errorMessage:
+                type: string
+              data:
+                type: string
+            type: object
+        401:
+          description: Unauthorized
+  '/api/category/{categoryId}/song':
+    get:
+      tags:
+        - Category
+      summary: 'Kategori şarkılarını döner'
+      description: 'Kategori şarkılarını döner'
+      parameters:
+        -
+          name: categoryId
+          in: path
+          description: categoryId
+          type: integer
+          format: int32
+        -
+          name: token
+          in: header
+          description: token
+          required: true
+          type: string
+      responses:
+        200:
+          description: 'işlem başarılı'
+          schema:
+            properties:
+              errorCode:
+                type: int
+              errorMessage:
+                type: string
+              data:
+                type: string
+            type: object
+        401:
+          description: Unauthorized
+  /api/config:
+    get:
+      tags:
+        - Config
+      summary: 'Ayarlar dosyasını indirir'
+      description: 'Ayarlar dosyasını indirir'
+      responses:
+        200:
+          description: 'işlem başarılı'
+          schema:
+            properties:
+              errorCode:
+                type: int
+              errorMessage:
+                type: string
+              data:
+                type: string
+            type: object
+        401:
+          description: Unauthorized
+  /api/config/check:
+    post:
+      tags:
+        - Config
+      summary: 'Ayarları kontrol eder'
+      description: 'Ayarlar kontrol eder'
+      parameters:
+        -
+          name: app_ver
+          in: query
+          description: app_ver
+          required: true
+          type: string
+        -
+          name: lang_ver
+          in: query
+          description: lang_ver
+          required: true
+          type: string
+      responses:
+        200:
+          description: 'işlem başarılı'
+          schema:
+            properties:
+              errorCode:
+                type: int
+              errorMessage:
+                type: string
+              data:
+                type: string
+            type: object
+        401:
+          description: Unauthorized
+  /api/favorite:
+    get:
+      tags:
+        - Favorite
+      summary: 'Favori Şarkı listesini döner'
+      description: 'Favori Şarkı listesini döner'
+      parameters:
+        -
+          name: token
+          in: header
+          description: token
+          required: true
+          type: string
+      responses:
+        200:
+          description: 'işlem başarılı'
+          schema:
+            properties:
+              errorCode:
+                type: int
+              errorMessage:
+                type: string
+              data:
+                type: string
+            type: object
+        401:
+          description: Unauthorized
+    post:
+      tags:
+        - Favorite
+      summary: 'Favori Şarkı ekle'
+      description: 'Favori Şarkı ekle'
+      parameters:
+        -
+          name: token
+          in: header
+          description: token
+          required: true
+          type: string
+        -
+          name: songId
+          in: query
+          description: songId
+          required: true
+          type: string
+      responses:
+        204:
+          description: 'işlem başarılı'
+          schema:
+            properties:
+              errorCode:
+                type: int
+              errorMessage:
+                type: string
+              data:
+                type: string
+            type: object
+        401:
+          description: Unauthorized
+    delete:
+      tags:
+        - Favorite
+      summary: 'Favori Şarkı sil'
+      description: 'Favori Şarkı sil'
+      parameters:
+        -
+          name: token
+          in: header
+          description: token
+          required: true
+          type: string
+        -
+          name: songId
+          in: path
+          description: songId
+          type: integer
+          format: int32
+      responses:
+        204:
+          description: 'işlem başarılı'
+          schema:
+            properties:
+              errorCode:
+                type: int
+              errorMessage:
+                type: string
+              data:
+                type: string
+            type: object
+        401:
+          description: Unauthorized
+  /api/song:
+    get:
+      tags:
+        - Song
+      summary: 'Şarkı listesini döner'
+      description: 'Şarkı listesini döner'
+      parameters:
+        -
+          name: token
+          in: header
+          description: token
+          required: true
+          type: string
+      responses:
+        200:
+          description: 'işlem başarılı'
+          schema:
+            properties:
+              errorCode:
+                type: int
+              errorMessage:
+                type: string
+              data:
+                type: string
+            type: object
+        401:
+          description: Unauthorized
+    post:
+      tags:
+        - Song
+      summary: 'Şarkı ekle'
+      description: 'Şarkı ekle'
+      parameters:
+        -
+          name: token
+          in: header
+          description: token
+          required: true
+          type: string
+        -
+          name: title
+          in: query
+          description: title
+          required: true
+          type: string
+        -
+          name: image
+          in: query
+          description: image
+          required: true
+          type: string
+      responses:
+        201:
+          description: 'işlem başarılı'
+          schema:
+            properties:
+              errorCode:
+                type: int
+              errorMessage:
+                type: string
+              data:
+                type: string
+            type: object
+        401:
+          description: Unauthorized
+  '/api/song/{songId}':
+    get:
+      tags:
+        - Song
+      summary: 'Şarkı detayı'
+      description: 'Şarkı detayo'
+      parameters:
+        -
+          name: songId
+          in: path
+          description: songId
+          type: integer
+          format: int32
+        -
+          name: token
+          in: header
+          description: token
+          required: true
+          type: string
+      responses:
+        200:
+          description: 'işlem başarılı'
+          schema:
+            properties:
+              errorCode:
+                type: int
+              errorMessage:
+                type: string
+              data:
+                type: string
+            type: object
+        401:
+          description: Unauthorized
+    put:
+      tags:
+        - Song
+      summary: 'Şarkı güncelleme'
+      description: 'Şarkı güncelleme'
+      parameters:
+        -
+          name: songId
+          in: path
+          description: songId
+          type: integer
+          format: int32
+        -
+          name: token
+          in: header
+          description: token
+          required: true
+          type: string
+        -
+          name: title
+          in: query
+          description: title
+          required: true
+          type: string
+        -
+          name: image
+          in: query
+          description: image
+          required: true
+          type: string
+      responses:
+        201:
+          description: 'işlem başarılı'
+          schema:
+            properties:
+              errorCode:
+                type: int
+              errorMessage:
+                type: string
+              data:
+                type: string
+            type: object
+        401:
+          description: Unauthorized
+    delete:
+      tags:
+        - Song
+      summary: 'Şarkı Silme'
+      description: 'Şarkı Silme'
+      parameters:
+        -
+          name: songId
+          in: path
+          description: songId
+          type: integer
+          format: int32
+        -
+          name: token
+          in: header
+          description: token
+          required: true
+          type: string
+      responses:
+        204:
+          description: 'işlem başarılı'
+          schema:
+            properties:
+              errorCode:
+                type: int
+              errorMessage:
+                type: string
+              data:
+                type: string
+            type: object
+        401:
+          description: Unauthorized
+definitions: {  }

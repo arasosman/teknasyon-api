@@ -1,0 +1,933 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "API",
+        "description": "API Documentation",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Kay\u0131t i\u015flemi",
+                "description": "Kay\u0131t i\u015flemi",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "email adresi",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "User e-mail address",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Kullan\u0131c\u0131 \u015fifresi",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Kay\u0131t Ba\u015far\u0131l\u0131",
+                        "schema": {
+                            "properties": {
+                                "errorCode": {
+                                    "type": "int"
+                                },
+                                "errorMessage": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login i\u015flemi",
+                "description": "Login i\u015flemi",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "User e-mail address",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "User password",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Kay\u0131t Ba\u015far\u0131l\u0131",
+                        "schema": {
+                            "properties": {
+                                "errorCode": {
+                                    "type": "int"
+                                },
+                                "errorMessage": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout i\u015flemi",
+                "description": "Login i\u015flemi",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Kay\u0131t Ba\u015far\u0131l\u0131",
+                        "schema": {
+                            "properties": {
+                                "errorCode": {
+                                    "type": "int"
+                                },
+                                "errorMessage": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/user": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Profil bilgisi",
+                "description": "Profil bilgisi",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "User token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "profile data",
+                        "schema": {
+                            "properties": {
+                                "user_id": {
+                                    "type": "integer"
+                                },
+                                "name_surname": {
+                                    "type": "string"
+                                },
+                                "age": {
+                                    "type": "integer"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/category": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Kategori listesini d\u00f6ner",
+                "description": "Kategory listesini d\u00f6ner",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "i\u015flem ba\u015far\u0131l\u0131",
+                        "schema": {
+                            "properties": {
+                                "errorCode": {
+                                    "type": "int"
+                                },
+                                "errorMessage": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Kategori ekle",
+                "description": "Kategory ekle",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "image",
+                        "in": "query",
+                        "description": "image",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "i\u015flem ba\u015far\u0131l\u0131",
+                        "schema": {
+                            "properties": {
+                                "errorCode": {
+                                    "type": "int"
+                                },
+                                "errorMessage": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/category/{categoryId}": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Kategori detay\u0131",
+                "description": "Kategory detayo",
+                "parameters": [
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "description": "categoryId",
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "i\u015flem ba\u015far\u0131l\u0131",
+                        "schema": {
+                            "properties": {
+                                "errorCode": {
+                                    "type": "int"
+                                },
+                                "errorMessage": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Kategori g\u00fcncelleme",
+                "description": "Kategory g\u00fcncelleme",
+                "parameters": [
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "description": "categoryId",
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "image",
+                        "in": "query",
+                        "description": "image",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "i\u015flem ba\u015far\u0131l\u0131",
+                        "schema": {
+                            "properties": {
+                                "errorCode": {
+                                    "type": "int"
+                                },
+                                "errorMessage": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Kategori Silme",
+                "description": "Kategori Silme",
+                "parameters": [
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "description": "categoryId",
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "i\u015flem ba\u015far\u0131l\u0131",
+                        "schema": {
+                            "properties": {
+                                "errorCode": {
+                                    "type": "int"
+                                },
+                                "errorMessage": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/category/{categoryId}/song": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Kategori \u015fark\u0131lar\u0131n\u0131 d\u00f6ner",
+                "description": "Kategori \u015fark\u0131lar\u0131n\u0131 d\u00f6ner",
+                "parameters": [
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "description": "categoryId",
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "i\u015flem ba\u015far\u0131l\u0131",
+                        "schema": {
+                            "properties": {
+                                "errorCode": {
+                                    "type": "int"
+                                },
+                                "errorMessage": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/config": {
+            "get": {
+                "tags": [
+                    "Config"
+                ],
+                "summary": "Ayarlar dosyas\u0131n\u0131 indirir",
+                "description": "Ayarlar dosyas\u0131n\u0131 indirir",
+                "responses": {
+                    "200": {
+                        "description": "i\u015flem ba\u015far\u0131l\u0131",
+                        "schema": {
+                            "properties": {
+                                "errorCode": {
+                                    "type": "int"
+                                },
+                                "errorMessage": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/config/check": {
+            "post": {
+                "tags": [
+                    "Config"
+                ],
+                "summary": "Ayarlar\u0131 kontrol eder",
+                "description": "Ayarlar kontrol eder",
+                "parameters": [
+                    {
+                        "name": "app_ver",
+                        "in": "query",
+                        "description": "app_ver",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "lang_ver",
+                        "in": "query",
+                        "description": "lang_ver",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "i\u015flem ba\u015far\u0131l\u0131",
+                        "schema": {
+                            "properties": {
+                                "errorCode": {
+                                    "type": "int"
+                                },
+                                "errorMessage": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/favorite": {
+            "get": {
+                "tags": [
+                    "Favorite"
+                ],
+                "summary": "Favori \u015eark\u0131 listesini d\u00f6ner",
+                "description": "Favori \u015eark\u0131 listesini d\u00f6ner",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "i\u015flem ba\u015far\u0131l\u0131",
+                        "schema": {
+                            "properties": {
+                                "errorCode": {
+                                    "type": "int"
+                                },
+                                "errorMessage": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Favorite"
+                ],
+                "summary": "Favori \u015eark\u0131 ekle",
+                "description": "Favori \u015eark\u0131 ekle",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "songId",
+                        "in": "query",
+                        "description": "songId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "i\u015flem ba\u015far\u0131l\u0131",
+                        "schema": {
+                            "properties": {
+                                "errorCode": {
+                                    "type": "int"
+                                },
+                                "errorMessage": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Favorite"
+                ],
+                "summary": "Favori \u015eark\u0131 sil",
+                "description": "Favori \u015eark\u0131 sil",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "songId",
+                        "in": "path",
+                        "description": "songId",
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "i\u015flem ba\u015far\u0131l\u0131",
+                        "schema": {
+                            "properties": {
+                                "errorCode": {
+                                    "type": "int"
+                                },
+                                "errorMessage": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/song": {
+            "get": {
+                "tags": [
+                    "Song"
+                ],
+                "summary": "\u015eark\u0131 listesini d\u00f6ner",
+                "description": "\u015eark\u0131 listesini d\u00f6ner",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "i\u015flem ba\u015far\u0131l\u0131",
+                        "schema": {
+                            "properties": {
+                                "errorCode": {
+                                    "type": "int"
+                                },
+                                "errorMessage": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Song"
+                ],
+                "summary": "\u015eark\u0131 ekle",
+                "description": "\u015eark\u0131 ekle",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "title",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "image",
+                        "in": "query",
+                        "description": "image",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "i\u015flem ba\u015far\u0131l\u0131",
+                        "schema": {
+                            "properties": {
+                                "errorCode": {
+                                    "type": "int"
+                                },
+                                "errorMessage": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/song/{songId}": {
+            "get": {
+                "tags": [
+                    "Song"
+                ],
+                "summary": "\u015eark\u0131 detay\u0131",
+                "description": "\u015eark\u0131 detayo",
+                "parameters": [
+                    {
+                        "name": "songId",
+                        "in": "path",
+                        "description": "songId",
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "i\u015flem ba\u015far\u0131l\u0131",
+                        "schema": {
+                            "properties": {
+                                "errorCode": {
+                                    "type": "int"
+                                },
+                                "errorMessage": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Song"
+                ],
+                "summary": "\u015eark\u0131 g\u00fcncelleme",
+                "description": "\u015eark\u0131 g\u00fcncelleme",
+                "parameters": [
+                    {
+                        "name": "songId",
+                        "in": "path",
+                        "description": "songId",
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "title",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "image",
+                        "in": "query",
+                        "description": "image",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "i\u015flem ba\u015far\u0131l\u0131",
+                        "schema": {
+                            "properties": {
+                                "errorCode": {
+                                    "type": "int"
+                                },
+                                "errorMessage": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Song"
+                ],
+                "summary": "\u015eark\u0131 Silme",
+                "description": "\u015eark\u0131 Silme",
+                "parameters": [
+                    {
+                        "name": "songId",
+                        "in": "path",
+                        "description": "songId",
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "i\u015flem ba\u015far\u0131l\u0131",
+                        "schema": {
+                            "properties": {
+                                "errorCode": {
+                                    "type": "int"
+                                },
+                                "errorMessage": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {}
+}
