@@ -2,7 +2,9 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Resources\Json\JsonResource;
+use JsonSerializable;
 
 class BaseResource extends JsonResource
 {
@@ -147,11 +149,21 @@ class BaseResource extends JsonResource
 
     public function resolve($request = null)
     {
-        $data = [
+        if ($this->resource instanceof Arrayable) {
+            $data = $this->resource->toArray();
+        } elseif ($this->resource instanceof JsonSerializable) {
+            $data = $this->resource->jsonSerialize();
+        } elseif (is_array($this->resource)) {
+            $data = $this->resource;
+        } else {
+            $data = null;
+        }
+
+        $result = [
             'errorMessage' => $this->errorMessage,
             'errorCode' => $this->errorCode,
-            'data' => $this->resource ? $this->resource->toArray() : null
+            'data' => $data
         ];
-        return $this->filter((array)$data);
+        return $this->filter($result);
     }
 }
