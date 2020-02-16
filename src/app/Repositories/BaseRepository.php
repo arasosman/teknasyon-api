@@ -77,7 +77,7 @@ class BaseRepository implements BaseRepositoryContract
 
     public function destroy($model)
     {
-        // TODO: Implement destroy() method.
+        return $model->delete();
     }
 
     public function findBySlug($slug)

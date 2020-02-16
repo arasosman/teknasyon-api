@@ -36,4 +36,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function favorites()
+    {
+        return $this->hasManyThrough(
+            Song::class,
+            Favorite::class,
+            'user_id',
+            'favorite_id',
+            'id',
+            'id'
+        );
+    }
 }
