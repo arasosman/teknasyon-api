@@ -1,6 +1,7 @@
 ## Rahatlatıcı Müzikler Api
 
 ### Kurulum
+
     git clone https://github.com/arasosman/teknasyon-api.git
 	cd teknasyon-api
 	cd src
@@ -10,12 +11,15 @@
     php artisan l5-swagger:generate
     cd ..
 ## Docker Compose işlemleri   
+
     docker-compose build
     docker-compose up -d
 ##Veritabanı işlemleri
+
     cd src
     php artisan migrate
     php artisan db:seed
+    
     
     
 `api dökümanı` Swagger yardımı ile oluşmaktadır. Aşağıdaki linkten kullanılabilir duruma gelmektedir.
