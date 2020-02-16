@@ -61,7 +61,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Cache::tags('categories')->remember('categories', 60, function () {
+        $categories = Cache::remember('categories', 60, function () {
             return $this->categoryRepository->all();
         });
 
