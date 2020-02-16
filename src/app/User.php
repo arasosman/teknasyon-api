@@ -39,13 +39,7 @@ class User extends Authenticatable
 
     public function favorites()
     {
-        return $this->hasManyThrough(
-            Song::class,
-            Favorite::class,
-            'user_id',
-            'favorite_id',
-            'id',
-            'id'
-        );
+        return $this->belongsToMany(Song::class, 'favorites');
+
     }
 }

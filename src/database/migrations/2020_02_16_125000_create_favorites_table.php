@@ -17,7 +17,6 @@ class CreateFavoritesTable extends Migration
             $table->bigIncrements('id');
             $table->integer('song_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->timestamps();
 
             $table->index(['song_id', 'user_id']);
         });

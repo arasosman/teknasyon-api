@@ -12,4 +12,9 @@ class Song extends Model
     {
         return $this->belongsToMany(Category::class, 'category_song');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'favorites');
+    }
 }
