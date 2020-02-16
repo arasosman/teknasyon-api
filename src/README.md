@@ -24,8 +24,9 @@
     
 `api dökümanı` Swagger yardımı ile oluşmaktadır. Aşağıdaki linkten kullanılabilir duruma gelmektedir.
     
-    http://localhost:8080/api/documentation
-Veritabanına erişmek için bilgiler
+http://localhost:8080/api/documentation
+
+###Veritabanına erişmek için bilgiler
 
     http://localhost:8081
     user: homestead
@@ -36,3 +37,13 @@ Veritabanına erişmek için bilgiler
 
     vendor/bin/phpunit
     composer run phpcs
+    
+##Conteiner hatası
+proje conteiner'da mysql bağlantı hatası oluşursa. build in server kullanılabilir.
+ - src dizininde yapılmalıdır
+
+
+
+    php artisan serve
+    
+http://localhost:8000/api/documentation
