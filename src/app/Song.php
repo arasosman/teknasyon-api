@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Song extends Model
 {
-    protected $fillable = ['title', 'image'];
+    protected $fillable = ['title', 'image', 'link'];
 
     public function categories()
     {

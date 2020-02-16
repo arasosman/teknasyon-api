@@ -93,6 +93,13 @@ class SongController extends Controller
      *          type="string",
      *          in="query"
      *     ),
+     *     @SWG\Parameter(
+     *          name="link",
+     *          description="link",
+     *          required=true,
+     *          type="string",
+     *          in="query"
+     *     ),
      *     @SWG\Response(
      *          response=201,
      *          description="işlem başarılı",
@@ -122,7 +129,7 @@ class SongController extends Controller
      */
     public function store(SongRequest $request)
     {
-        $song = $this->songRepository->create($request->only('title', 'image'));
+        $song = $this->songRepository->create($request->only('title', 'image', 'link'));
         if ($song) {
             return new SongResource($song, BaseResource::HTTP_CREATED, BaseResource::$statusTexts[BaseResource::HTTP_CREATED]);
         }

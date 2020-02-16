@@ -532,6 +532,12 @@ paths:
           description: image
           required: true
           type: string
+        -
+          name: link
+          in: query
+          description: link
+          required: true
+          type: string
       responses:
         201:
           description: 'işlem başarılı'

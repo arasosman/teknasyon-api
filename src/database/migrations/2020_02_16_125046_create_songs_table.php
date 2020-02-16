@@ -17,6 +17,7 @@ class CreateSongsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title', 100);
             $table->string('image', 200);
+            $table->string('link', 200);
             $table->integer('favorite_id')->nullable()->unsigned();
             $table->timestamps();
         });

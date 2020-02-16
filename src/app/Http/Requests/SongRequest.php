@@ -25,7 +25,8 @@ class SongRequest extends FormRequest
     {
         return [
             'title' => 'required|string',
-            'image' => 'required|string'
+            'image' => 'required|string',
+            'link' => 'required|string',
         ];
     }
 }
