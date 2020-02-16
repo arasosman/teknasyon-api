@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Resources\BaseResource;
 use App\User;
 use Closure;
 use Illuminate\Validation\UnauthorizedException;
@@ -23,6 +24,6 @@ class CheckToken
                 return $next($request);
             }
         }
-        throw new UnauthorizedException('Token required !!');
+        return new BaseResource(null, 401, "UnAuthorize");
     }
 }
