@@ -74,7 +74,7 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        $user = $request->user();
+        $user = $this->userRepository->findBytoken($request);
         $this->userRepository->update($user, ['api_token' => '']);
         return response()->json([
             'message' => 'Successfully logged out'
@@ -87,6 +87,7 @@ class AuthController extends Controller
      */
     public function user(Request $request)
     {
-        return response()->json($request->user())->setStatusCode(200);
+        $user = $this->userRepository->findByToken($request);
+        return response()->json($user)->setStatusCode(200);
     }
 }

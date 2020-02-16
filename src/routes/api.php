@@ -20,7 +20,7 @@ Route::get('test', function () {
     return "Hello Word";
 });
 
-Route::middleware('auth:api')->group(function () {
+Route::middleware('check.token')->group(function () {
     Route::get('logout', 'AuthController@logout')->name('api.logout');
     Route::get('user', 'AuthController@user')->name('api.user');
 });
