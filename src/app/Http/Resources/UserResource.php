@@ -10,5 +10,4 @@ class UserResource extends BaseResource
     {
         parent::__construct($resource, $errorCode, $errorMessage);
     }
-
 }

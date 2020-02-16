@@ -34,5 +34,4 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
         $user = $this->findByToken(\request());
         return $user->favorites()->detach($songId);
     }
-
 }

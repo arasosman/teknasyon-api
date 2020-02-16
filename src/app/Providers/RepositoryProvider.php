@@ -36,10 +36,11 @@ class RepositoryProvider extends ServiceProvider
             return new UserRepository(new User());
         });
 
-        $this->app->bind(SongRepositoryContract::class, function (){
+        $this->app->bind(SongRepositoryContract::class, function () {
             return new SongRepository(new Song());
         });
-        $this->app->bind(CategoryRepositoryContract::class, function (){
+
+        $this->app->bind(CategoryRepositoryContract::class, function () {
             return new CategoryRepository(new Category());
         });
     }

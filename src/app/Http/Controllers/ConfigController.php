@@ -116,12 +116,15 @@ class ConfigController extends Controller
         $this->configService->setCurrentConfig(config('app_config'));
         $result = $this->configService->checkVersion();
 
-        if ($result == ConfigService::FORCE_UPDATE) {
-            return new ConfigResultResource(null, self::FORCE_UPDATE_CODE, self::FORCE_UPDATE_MESSAGE);
-        } else if ($result == ConfigService::SOFT_UPDATE) {
-            return new ConfigResultResource(null, self::SOFT_UPDATE_CODE, self::SOFT_UPDATE_MESSAGE);
-        } else {
-            return new ConfigResultResource(null, self::UP_TO_DATE_CODE, self::UP_TO_DATE_MESSAGE);
+        switch ($result) {
+            case ConfigService::FORCE_UPDATE:
+                return new ConfigResultResource(null, self::FORCE_UPDATE_CODE, self::FORCE_UPDATE_MESSAGE);
+                break;
+            case ConfigService::SOFT_UPDATE:
+                return new ConfigResultResource(null, self::SOFT_UPDATE_CODE, self::SOFT_UPDATE_MESSAGE);
+                break;
+            default:
+                return new ConfigResultResource(null, self::UP_TO_DATE_CODE, self::UP_TO_DATE_MESSAGE);
         }
     }
 }

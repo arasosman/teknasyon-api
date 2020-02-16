@@ -40,6 +40,5 @@ class User extends Authenticatable
     public function favorites()
     {
         return $this->belongsToMany(Song::class, 'favorites');
-
     }
 }

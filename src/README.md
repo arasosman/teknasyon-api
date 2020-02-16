@@ -35,3 +35,4 @@ Veritabanına erişmek için bilgiler
 #Testler
 
     vendor/bin/phpunit
+    composer run phpcs

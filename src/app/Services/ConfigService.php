@@ -46,7 +46,6 @@ class ConfigService
     {
         $this->fillVersions();
         return $this->validateVersions();
-
     }
 
     private function validateVersions()
@@ -61,9 +60,13 @@ class ConfigService
             } else {
                 $response = self::UP_TO_DATE;
             }
-            if ($response == self::UP_TO_DATE && $oldResponse == self::SOFT_UPDATE) return self::SOFT_UPDATE;
+            if ($response == self::UP_TO_DATE && $oldResponse == self::SOFT_UPDATE) {
+                return self::SOFT_UPDATE;
+            }
             $oldResponse = $response;
-            if ($response == self::FORCE_UPDATE) return self::FORCE_UPDATE;
+            if ($response == self::FORCE_UPDATE) {
+                return self::FORCE_UPDATE;
+            }
         }
         return $response;
     }
