@@ -9,6 +9,7 @@ use App\Http\Resources\SongResource;
 use App\Repositories\CategoryRepository;
 use App\Repositories\Contracts\CategoryRepositoryContract;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class CategoryController extends Controller
 {
@@ -60,7 +61,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = $this->categoryRepository->all();
+        $categories = Cache::tags('categories')->remember('categories', 60, function () {
+            return $this->categoryRepository->all();
+        });
+
         if ($categories) {
             return new CategoryResource($categories, BaseResource::HTTP_OK, BaseResource::$statusTexts[BaseResource::HTTP_OK]);
         }
@@ -172,7 +176,9 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $song = $this->categoryRepository->find($id);
+        $song = Cache::remember('category.' . $id, 60, function () use ($id) {
+            return $this->categoryRepository->find($id);
+        });
         if ($song) {
             return new CategoryResource($song, BaseResource::HTTP_OK, BaseResource::$statusTexts[BaseResource::HTTP_OK]);
         }
@@ -337,7 +343,9 @@ class CategoryController extends Controller
      */
     public function song($id)
     {
-        $songs = $this->categoryRepository->song($id);
+        $songs = Cache::remember('category.song.' . $id, 60, function () use ($id) {
+            $this->categoryRepository->song($id);
+        });
         if (!$songs->isEmpty()) {
             return new SongResource($songs, BaseResource::HTTP_OK, BaseResource::$statusTexts[BaseResource::HTTP_OK]);
         }

@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CategoryRequest;
 use App\Http\Requests\SongRequest;
 use App\Http\Resources\BaseResource;
-use App\Http\Resources\CategoryResource;
 use App\Http\Resources\SongResource;
 use App\Repositories\Contracts\SongRepositoryContract;
 use App\Repositories\SongRepository;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class SongController extends Controller
 {
@@ -62,7 +58,9 @@ class SongController extends Controller
      */
     public function index()
     {
-        $songs = $this->songRepository->all();
+        $songs = \Cache::remember('songs', 60, function () {
+            return $this->songRepository->all();
+        });
         if ($songs) {
             return new SongResource($songs, BaseResource::HTTP_OK, BaseResource::$statusTexts[BaseResource::HTTP_OK]);
         }
@@ -174,7 +172,9 @@ class SongController extends Controller
      */
     public function show($id)
     {
-        $song = $this->songRepository->find($id);
+        $song = \Cache::remember('song.' . $id, 60, function () use ($id) {
+            return $this->songRepository->find($id);
+        });
         if ($song) {
             return new SongResource($song, BaseResource::HTTP_OK, BaseResource::$statusTexts[BaseResource::HTTP_OK]);
         }
