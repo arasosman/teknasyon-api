@@ -33,4 +33,7 @@ Route::middleware('check.token')->group(function () {
     Route::get('user', 'AuthController@user')->name('api.user');
 
     Route::resource('song', 'SongController')->except(['create', 'edit']);
+    Route::resource('category', 'CategoryController')->except(['create', 'edit']);
+
+    Route::get('category/{id}/song', 'CategoryController@song')->name('category.song');
 });

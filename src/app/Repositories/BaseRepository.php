@@ -26,6 +26,11 @@ class BaseRepository implements BaseRepositoryContract
         return $this->model->find($entityId);
     }
 
+    public function findWith(int $entityId, array $with)
+    {
+        return $this->model->with($with)->find($entityId);
+    }
+
     /**
      * @inheritdoc
      * @param  $idOrSlug

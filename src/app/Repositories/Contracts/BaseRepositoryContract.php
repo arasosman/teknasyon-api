@@ -18,6 +18,15 @@ interface BaseRepositoryContract
     public function find($entityId);
 
     /**
+     * Idsi verilen elemanı istenilen ilişkileri ile döner.
+     * @param int $entityId
+     * @param array $with
+     * @return  $model
+     * @internal param array|int $id
+     */
+    public function findWith(int $entityId, array $with);
+
+    /**
      * parametre numeric ise idye bakar değilse slug kriterine uyan tek kaydı döner
      *
      * @param int|string $idOrSlug

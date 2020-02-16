@@ -2,9 +2,9 @@
 
 namespace App\Repositories;
 
-use App\Repositories\Contracts\BaseRepositoryContract;
+use App\Repositories\Contracts\SongRepositoryContract;
 
-class SongRepository extends BaseRepository implements BaseRepositoryContract
+class SongRepository extends BaseRepository implements SongRepositoryContract
 {
 
 }
