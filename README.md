@@ -42,8 +42,6 @@ http://localhost:8080/api/documentation
 proje conteiner'da mysql bağlantı hatası oluşursa. build in server kullanılabilir.
  - src dizininde yapılmalıdır
 
-
-
     php artisan serve
     
 http://localhost:8000/api/documentation
