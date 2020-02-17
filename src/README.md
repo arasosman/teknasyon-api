@@ -3,22 +3,21 @@
 ### Kurulum
 
     git clone https://github.com/arasosman/teknasyon-api.git
-	cd teknasyon-api
-	cd src
+	cd teknasyon-api/src
 	cp .env.example .env 
-    composer install
-    php artisan key:generate
-    php artisan l5-swagger:generate
-    cd ..
+    docker run --rm -v $(pwd):/app composer install
+    
 ## Docker Compose işlemleri   
 
     docker-compose build
     docker-compose up -d
+    
 ##Veritabanı işlemleri
 
-    cd src
-    php artisan migrate
-    php artisan db:seed
+    docker-compose exec php /usr/share/nginx/html/artisan key:generate
+    docker-compose exec php /usr/share/nginx/html/artisan l5-swagger:generate
+    docker-compose exec php /usr/share/nginx/html/artisan migrate
+    docker-compose exec php /usr/share/nginx/html/artisan db:seed
     
     
     
@@ -31,19 +30,10 @@ http://localhost:8080/api/documentation
     http://localhost:8081
     user: homestead
     pass: secret
-    port: 
     
 #Testler
+src dizininde çalıştırınız.
 
     vendor/bin/phpunit
     composer run phpcs
     
-##Conteiner hatası
-proje conteiner'da mysql bağlantı hatası oluşursa. build in server kullanılabilir.
- - src dizininde yapılmalıdır
-
-
-
-    php artisan serve
-    
-http://localhost:8000/api/documentation
